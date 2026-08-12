@@ -1,0 +1,8 @@
+{
+  "name": "project-conventions",
+  "version": "0.1.0",
+  "description": "Discipline journal-avant-commit et mockup-avant-implémentation, réutilisable sur n'importe quel projet — bootstrap la structure dès le jour 1, puis applique la convention établie.",
+  "author": {
+    "name": "Tim McGarry"
+  }
+}
