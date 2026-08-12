@@ -2,8 +2,9 @@
 name: bootstrap
 description: >
   Initialiser la structure de travail d'un nouveau projet (ou d'un projet
-  existant qui n'a pas encore ces conventions) — un fichier de journal, un
-  dossier de mockups si le projet a une interface visuelle, et un CLAUDE.md
+  existant qui n'a pas encore ces conventions) — un dépôt git avec son
+  .gitignore si le dossier n'est pas encore versionné, un fichier de journal,
+  un dossier de mockups si le projet a une interface visuelle, et un CLAUDE.md
   avec les sections de base et les conventions "journal" et "mockup-first".
   Utiliser ce skill quand Tim démarre un nouveau projet et dit des choses
   comme "on structure ce projet", "mets en place le journal et les mockups
@@ -25,6 +26,10 @@ Vérifier l'état du dossier courant :
   intégrer les nouvelles sections plutôt que de remplacer le fichier.
 - **`docs/journal/` ou `docs/mockups/` existent déjà** → même prudence,
   demander avant de réorganiser.
+- **Le dossier est-il déjà versionné ?** `git rev-parse --is-inside-work-tree`.
+  Si oui — y compris parce qu'un dossier *parent* est un dépôt — sauter toute
+  l'étape git ci-dessous et le dire, ne jamais créer un dépôt imbriqué dans un
+  autre : c'est pénible à défaire et ça casse le suivi des deux côtés.
 - Sinon (dossier neuf ou CLAUDE.md minimal/absent), continuer normalement.
 
 ## Étapes
@@ -35,16 +40,40 @@ Vérifier l'état du dossier courant :
    - Le projet a-t-il une interface visuelle (frontend, dashboard, appli) ?
      La réponse détermine si le mockup-first ci-dessous s'applique.
 
-2. **Créer `docs/journal/journal.md`** — un seul fichier de départ, pas de
+2. **Initialiser le dépôt git** — seulement si le contrôle ci-dessus a montré
+   que le dossier n'est pas déjà versionné. Sans dépôt, la convention "journal
+   avant le commit" écrite plus bas dans le CLAUDE.md n'a rien à quoi
+   s'accrocher.
+
+   - `git init -b master` — branche `master`, comme les autres projets solo de
+     Tim (pas de branche de travail, pas de PR sauf demande explicite).
+   - **Écrire le `.gitignore` tout de suite, avant le moindre `git add`.**
+     L'ordre n'est pas cosmétique : un secret entré dans l'historique n'en
+     ressort pas d'un `rm`, il faut réécrire l'historique et faire tourner le
+     secret. Base minimale, à compléter dès que la stack est connue :
+
+     ```
+     .env
+     .venv/
+     __pycache__/
+     node_modules/
+     logs/
+     .DS_Store
+     ```
+
+   Ne **pas** committer à ce stade — le premier commit vient à l'étape 6, une
+   fois les fichiers de structure écrits, pour qu'il ait un contenu réel.
+
+3. **Créer `docs/journal/journal.md`** — un seul fichier de départ, pas de
    table sujet→fichier pré-remplie. Un projet neuf n'a pas encore assez
    d'historique pour savoir quels sujets reviendront ; imposer une table dès
    le jour 1 serait deviner plutôt que refléter l'usage réel. Le fichier
    commence simplement avec un titre.
 
-3. **Si le projet a un frontend** : créer `docs/mockups/` (dossier vide,
+4. **Si le projet a un frontend** : créer `docs/mockups/` (dossier vide,
    prêt à recevoir les premiers mockups).
 
-4. **Écrire/compléter `CLAUDE.md`** avec ces sections (ne pas ajouter de
+5. **Écrire/compléter `CLAUDE.md`** avec ces sections (ne pas ajouter de
    sections qui n'ont de sens qu'après coup — pas de "Décisions déjà
    tranchées" ou "Notes techniques" vides, elles s'ajoutent d'elles-mêmes
    quand il y a vraiment quelque chose à y mettre) :
@@ -82,6 +111,25 @@ Vérifier l'état du dossier courant :
      supprimés.
    ```
 
-5. **Confirmer à Tim** ce qui a été créé, en particulier le choix "un seul
+6. **Premier commit** (si le dépôt vient d'être créé à l'étape 2) — une fois
+   le `.gitignore` et les fichiers de structure en place. Vérifier ce qui part
+   avec `git status` avant de committer : si un fichier qui n'aurait pas dû
+   être suivi apparaît, compléter le `.gitignore` plutôt que de committer et
+   corriger après.
+
+7. **Proposer le dépôt distant — ne rien créer sans un oui explicite.** Le
+   dépôt local de l'étape 2 est déjà pleinement utilisable ; publier est un
+   geste séparé, qui expose quelque chose sous le compte de Tim. Donc :
+   demander, et s'arrêter là s'il ne répond pas ou décline.
+
+   - Proposer un **slug** dérivé du nom du *dossier*, pas de la phrase donnée
+     à l'étape 1 ("Suivi de mes finances" n'est pas un nom de dépôt), et le
+     faire valider.
+   - **Privé par défaut.** Ne basculer en public que si Tim le demande
+     explicitement, jamais comme suggestion.
+   - S'il accepte : `gh repo create <slug> --private --source=. --push`.
+
+8. **Confirmer à Tim** ce qui a été créé, en particulier le choix "un seul
    fichier de journal pour l'instant" — pour qu'il sache que la table
-   sujet→fichier viendra plus tard, pas maintenant.
+   sujet→fichier viendra plus tard, pas maintenant. Dire aussi si un dépôt a
+   été initialisé, et s'il est resté local ou non.
