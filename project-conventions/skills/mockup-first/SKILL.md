@@ -45,6 +45,11 @@ alignement cassé) sur quelque chose qui existe déjà.
    en a pas encore (premier mockup du projet), s'appuyer sur le reste du
    frontend existant (styles.css ou équivalent) pour rester cohérent avec ce
    qui est déjà en place.
+   Si le projet **consigne ses conventions visuelles par écrit** (polices,
+   variables CSS, principes de thème — son CLAUDE.md indique en général où),
+   lire ce fichier d'abord : c'est plus fiable que de les déduire des mockups
+   existants, et ça évite d'inventer une variante de la palette à chaque
+   nouveau mockup.
 3. **Créer un nouveau fichier HTML autonome** dans `docs/mockups/` (nom
    descriptif, ex. `mockup-<sujet>.html`) — pas besoin de le brancher aux
    vraies données ni au reste de l'app, il doit se suffire à lui-même
