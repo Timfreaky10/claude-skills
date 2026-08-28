@@ -49,6 +49,10 @@ alignement cassé) sur quelque chose qui existe déjà.
    descriptif, ex. `mockup-<sujet>.html`) — pas besoin de le brancher aux
    vraies données ni au reste de l'app, il doit se suffire à lui-même
    visuellement.
+   En revanche, y mettre des **valeurs réalistes** plutôt que du Lorem ipsum
+   ou des nombres ronds inventés : reprendre de vrais libellés et de vraies
+   longueurs de texte du projet fait apparaître tout de suite les problèmes
+   de mise en page qu'un contenu factice masque.
 4. **Soumettre pour validation** avant d'écrire une seule ligne de code
    d'implémentation frontend. Attendre une confirmation explicite, pas juste
    l'absence d'objection.
@@ -58,6 +62,10 @@ alignement cassé) sur quelque chose qui existe déjà.
 6. **Implémenter en relisant le fichier mockup validé**, pas de mémoire —
    rouvrir le fichier au moment d'écrire le code, même si la validation date
    de plusieurs messages plus tôt dans la conversation.
+
+   Si plusieurs écarts au mockup sont trouvés après coup, relire le fichier
+   **en entier** plutôt que corriger écart par écart — ils arrivent rarement
+   seuls.
 7. **Vérifier dans un vrai navigateur, puis rapporter avec la preuve.**
    Implémenter n'est pas terminer. Charger la page, zéro erreur console,
    contrôler les valeurs qui comptent avec `getComputedStyle` plutôt qu'à
