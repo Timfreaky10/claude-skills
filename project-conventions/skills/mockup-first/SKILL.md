@@ -61,6 +61,17 @@ alignement cassé) sur quelque chose qui existe déjà.
 4. **Soumettre pour validation** avant d'écrire une seule ligne de code
    d'implémentation frontend. Attendre une confirmation explicite, pas juste
    l'absence d'objection.
+
+   **Au premier mockup validé du projet**, si les conventions visuelles ne
+   sont écrites nulle part (pas de `docs/mockups/README.md` ni d'équivalent
+   désigné par le CLAUDE.md), les consigner maintenant : c'est le moment où
+   la palette et la typographie viennent d'être choisies **et approuvées**,
+   donc le premier moment où il y a quelque chose de vrai à écrire. Relever
+   les valeurs depuis le mockup validé lui-même — polices et graisses,
+   couleurs et leur rôle, fond de page — et ajouter dans le CLAUDE.md la
+   ligne qui désigne le fichier. Les mockups suivants repartiront de là au
+   lieu de redécider à chaque fois.
+
 5. **Ne jamais supprimer le fichier après validation** — les mockups validés
    restent dans `docs/mockups/` comme référence durable pour de futurs
    changements dans la même zone.

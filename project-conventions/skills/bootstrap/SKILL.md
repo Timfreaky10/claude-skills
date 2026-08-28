@@ -4,7 +4,8 @@ description: >
   Initialiser la structure de travail d'un nouveau projet (ou d'un projet
   existant qui n'a pas encore ces conventions) — un dépôt git avec son
   .gitignore si le dossier n'est pas encore versionné, un fichier de journal,
-  un dossier de mockups si le projet a une interface visuelle, et un CLAUDE.md
+  un dossier de mockups (avec ses conventions visuelles si une feuille de styles
+  existe déjà) si le projet a une interface visuelle, et un CLAUDE.md
   avec les sections de base et les conventions "journal" et "mockup-first".
   Utiliser ce skill quand Tim démarre un nouveau projet et dit des choses
   comme "on structure ce projet", "mets en place le journal et les mockups
@@ -70,8 +71,22 @@ Vérifier l'état du dossier courant :
    le jour 1 serait deviner plutôt que refléter l'usage réel. Le fichier
    commence simplement avec un titre.
 
-4. **Si le projet a un frontend** : créer `docs/mockups/` (dossier vide,
-   prêt à recevoir les premiers mockups).
+4. **Si le projet a un frontend** : créer `docs/mockups/`, puis regarder s'il
+   y a déjà une feuille de styles (`styles.css`, un fichier de thème, des
+   tokens — bootstrap tourne aussi sur des projets en cours).
+
+   - **Une feuille de styles existe** → créer `docs/mockups/README.md` en
+     **relevant les valeurs dans le code** (polices et leurs graisses,
+     variables CSS avec leurs vraies valeurs et l'usage de chacune, fond de
+     page) — jamais de mémoire ni d'après ce qu'on croit être la charte. Y
+     écrire aussi que **le CSS fait foi** en cas de divergence, sinon le
+     fichier devient un doublon qui dérive en silence.
+   - **Aucune feuille de styles** (projet vraiment neuf) → laisser le dossier
+     vide. **Ne pas créer de README à trous** : un fichier de conventions
+     vide donnerait l'illusion que les conventions sont écrites, et
+     `mockup-first` irait le lire pour n'y trouver que des rubriques vides.
+     C'est ce skill-là qui le créera au premier mockup validé, quand la
+     palette existera vraiment.
 
 5. **Écrire/compléter `CLAUDE.md`** avec ces sections (ne pas ajouter de
    sections qui n'ont de sens qu'après coup — pas de "Décisions déjà
@@ -109,6 +124,11 @@ Vérifier l'état du dossier courant :
      Tim avant d'écrire du code, puis implémenter en **relisant** le fichier
      validé plutôt que de mémoire. Les mockups validés ne sont jamais
      supprimés.
+
+   <!-- Si docs/mockups/README.md a été créé à l'étape 4 : -->
+   - **Vocabulaire visuel** : polices, variables CSS et fond de page sont
+     dans `docs/mockups/README.md`, à ouvrir avant de construire un mockup.
+     Le CSS fait foi si les deux divergent.
    ```
 
 6. **Premier commit** (si le dépôt vient d'être créé à l'étape 2) — une fois
