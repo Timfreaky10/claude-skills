@@ -1,0 +1,8 @@
+{
+  "name": "learning-session",
+  "version": "0.1.0",
+  "description": "Suivi des sessions d'apprentissage de Tim — log Obsidian, curriculum, synchro TickTick. Ne connaît aucun cours : chemins, tags et IDs se lisent dans 02_Learning/_registre.md.",
+  "author": {
+    "name": "Tim McGarry"
+  }
+}

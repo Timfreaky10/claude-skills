@@ -1,0 +1,8 @@
+{
+  "name": "journal-obsidian",
+  "version": "0.1.0",
+  "description": "Procédure du journal Obsidian de Tim — daily dicté, revue hebdomadaire, notes thématiques. Ne porte que la procédure : gabarits et conventions se lisent dans le dossier projet Journal/.",
+  "author": {
+    "name": "Tim McGarry"
+  }
+}
