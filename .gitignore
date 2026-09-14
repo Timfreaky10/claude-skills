@@ -1,0 +1,11 @@
+# Skills de compte téléchargés par une synchronisation Cowork / app : ils ne
+# viennent pas de ce dépôt et ne doivent jamais y être committés. Ce dépôt fournit
+# déjà ses propres skills — ne pas lancer de sync sur une machine qui le clone.
+synced/
+
+# Archives .skill produites par scripts/build_skill.py : reconstruites à la demande
+# depuis le dépôt, jamais versionnées (elles dériveraient à la première modification).
+dist/
+*.skill
+
+__pycache__/

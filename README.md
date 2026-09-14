@@ -26,3 +26,23 @@ git clone https://github.com/Timfreaky10/claude-skills.git ~/.claude/skills
 
 Si `~/.claude/skills/` existe déjà avec du contenu sur cette machine, fusionner manuellement
 plutôt qu'écraser.
+
+## Construire un `.skill` pour un compte Claude
+
+Claude Code lit ce dossier directement : rien à construire pour lui. Un compte Claude (Cowork, claude.ai)
+garde en revanche une **copie figée** de chaque skill téléversé — après toute modification, il faut la
+remplacer. `scripts/build_skill.py` produit l'archive à téléverser :
+
+```bash
+python scripts/build_skill.py journal-obsidian learning-session
+```
+
+- Prend un **nom de skill** ou le chemin de son dossier. Un plugin qui en regroupe plusieurs
+  (`project-conventions`) s'extrait skill par skill : `python scripts/build_skill.py dev-journal`.
+- Écrit dans `dist/` par défaut (`--out` pour un autre dossier) ; `dist/` et `*.skill` sont ignorés par git.
+- **Refuse un skill qui a des modifications non committées** : l'archive doit correspondre à un état du
+  dépôt (`--allow-dirty` pour passer outre). Relit ensuite l'archive et la compare octet pour octet à la
+  source.
+
+Côté compte, supprimer l'ancienne version du skill avant d'importer la nouvelle. Et ne jamais modifier un
+skill directement dans le compte : la modification serait écrasée au réimport suivant.
