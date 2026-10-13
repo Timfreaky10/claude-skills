@@ -8,8 +8,10 @@ description: >
   dans son CLAUDE.md, section "Conventions de travail"), même pour un
   correctif qui semble mineur. Détermine le bon fichier dans docs/journal/
   en lisant la convention du projet (fichier unique ou table sujet→fichier
-  déjà établie), y écrit le récit détaillé, et ne laisse dans CLAUDE.md que
-  la règle durable qui en découle, s'il y en a une.
+  déjà établie), y écrit le récit détaillé, range une règle propre à une
+  fonctionnalité ou une référence technique dans le fichier de référence que
+  le projet désigne, et ne laisse dans CLAUDE.md que la règle durable utile à
+  n'importe quelle session — puis mesure ce qu'il vient d'y écrire.
 ---
 
 # Journal de projet
@@ -50,36 +52,49 @@ section **"Conventions de travail"** du `CLAUDE.md` du projet courant :
 
 ## Ce qui va où
 
-Deux textes différents, jamais un seul dupliqué à deux endroits :
+Chaque texte a **une seule** destination, choisie au moment d'écrire — jamais
+écrire d'abord dans CLAUDE.md pour ranger plus tard :
 
-- **Dans le fichier de journal choisi ci-dessus** : le récit complet, daté,
+- **Le récit → le fichier de journal choisi ci-dessus** : complet, daté,
   détaillé — décisions prises, bugs rencontrés (avec leur cause),
   vérifications faites, chiffres réels observés. Relire une entrée existante
   du même fichier pour le ton attendu : un paragraphe narratif, pas une puce
   télégraphique.
-- **Dans `CLAUDE.md`** (section "Conventions de travail" ou la section
-  d'état la plus pertinente) : *seulement si une règle durable et générale en
-  ressort* — une ou deux lignes, sans le récit. Ce fichier est chargé à
-  chaque session, donc chaque ligne doit rester utile dans n'importe quelle
-  session future, pas seulement pour comprendre ce qui s'est passé
-  aujourd'hui.
+- **Une règle propre à une fonctionnalité, ou une référence technique →
+  le fichier de référence que le projet désigne**, s'il en désigne (son
+  CLAUDE.md, section "Conventions de travail", dit lesquels et pour quoi :
+  par exemple un fichier de décisions par écran, un fichier de schéma de
+  base). Respecter sa structure (index, section par fonctionnalité/table).
+  Si le projet n'en désigne aucun, ce cas n'existe pas : la règle va au
+  journal, ou dans CLAUDE.md si elle sert partout.
+- **Une règle utile à n'importe quelle session → `CLAUDE.md`** : une ou deux
+  lignes, sans le récit, dans la section la plus pertinente. Ce fichier est
+  chargé à chaque session ; une règle qui ne sert que quand on touche à un
+  écran ou une table précise n'y a pas sa place.
 
-**Signal utile pour repérer une dérive** : une puce dans CLAUDE.md qui porte
-une date *et* dépasse environ 400 caractères a presque toujours un récit
-collé à sa règle — le récit part au journal, seule la règle reste. (Un bloc
-de référence long — liste de colonnes, de tables — n'est pas forcément un
-récit ; c'est la présence d'une date qui trahit le récit.)
+## Mesurer ce qu'on vient d'écrire dans CLAUDE.md
+
+Après l'écriture, relire **ses propres** ajouts à CLAUDE.md. Une puce qui
+porte une date *et* dépasse environ 400 caractères a presque toujours un
+récit collé à sa règle : le récit part au journal, seule la règle reste. (Un
+bloc de référence long — liste de colonnes, de tables — n'est pas forcément
+un récit ; c'est la date qui trahit le récit.)
+
+Ne ranger que ce qu'on vient d'écrire soi-même. Déplacer une règle plus
+ancienne du CLAUDE.md se propose à Tim, ça ne se fait pas d'office.
 
 ## Étapes
 
-1. Lire la section "Conventions de travail" du CLAUDE.md du projet courant
-   pour connaître le fichier unique ou la table en vigueur.
+1. Lire la section "Conventions de travail" du CLAUDE.md du projet courant :
+   fichier de journal unique ou table sujet → fichier, et fichiers de
+   référence éventuels.
 2. Identifier le sujet de ce qui vient d'être fait (pas la date, pas le
    chantier en cours).
-3. Choisir/valider le fichier.
+3. Choisir/valider le fichier de journal.
 4. Ajouter une entrée à la fin de ce fichier, au format des entrées
    existantes.
-5. Si une règle durable et générale en ressort, l'ajouter en une ou deux
-   lignes dans CLAUDE.md — sinon, ne rien y ajouter.
-6. Committer le journal (et CLAUDE.md si modifié) avec le reste du
+5. Si une règle en ressort, la ranger selon « Ce qui va où » — sinon, rien
+   d'autre à écrire.
+6. Si CLAUDE.md a été modifié, appliquer « Mesurer ce qu'on vient d'écrire ».
+7. Committer le journal (et les fichiers modifiés) avec le reste du
    changement, ou juste avant.
