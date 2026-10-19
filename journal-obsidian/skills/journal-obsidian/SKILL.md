@@ -89,14 +89,20 @@ soir, ne compléter que les champs vides : ne jamais écraser une donnée exista
 Ce qui n'a pas été dicté reste vide. Demander plutôt qu'inventer ; les inférences qui rendent le
 journal faux à la relecture sont le seul vrai risque ici.
 
+Heures de sommeil, aliments (bloc nutrition) et météo arrivent par les scripts : ne pas les remplir à
+la main ni recopier une valeur dictée par-dessus. Ce qui reste à dicter est dans `conventions.md`.
+
 ## Weekly
 
 1. **Lundi** : créer le stub de la semaine qui commence (voir le gabarit — la fenêtre météo ne pardonne
    pas le retard)
 2. **Fin de semaine** : lire tous les dailies de lundi à dimanche, calculer, rédiger
 
-Préserver **verbatim** les blocs déjà remplis par les scripts (tableau météo, Samsung Health) — ils ne
-se régénèrent pas.
+Les blocs écrits par les scripts — tableau météo, section Samsung Health, bloc nutrition entre
+`<!-- samsung-nutrition:start -->` et `:end -->` — **se gardent tels quels et ne s'éditent jamais** :
+les scripts les régénèrent (fenêtre de 7 jours, nouvel export). Rédiger autour. Le paragraphe
+Nutrition va **au-dessus** du bloc nutrition et s'appuie sur ses chiffres (moyenne, déclencheurs
+datés) plutôt que sur un recomptage des repas. Même règle pour le mensuel. Détails dans `conventions.md`.
 
 Une semaine mal documentée se **signale** (encadré en tête, nombre de dailies sources), elle ne se
 lisse pas : une moyenne sur un seul jour n'est pas une moyenne.
@@ -105,6 +111,10 @@ lisse pas : une moyenne sur un seul jour n'est pas une moyenne.
 
 Lire la note avant d'écrire, ajouter en tête de section, ne pas contredire le contexte narratif de
 `CLAUDE.md`. Le détail des règles est dans `conventions.md`.
+
+Une section générée par script (marqueurs `<!-- samsung-nutrition -->`, comme « 📊 Suivi nutritionnel »
+en bas de `Nutrition & Corps.md`) ne s'édite pas. La puce hebdo de cette note reprend les chiffres du
+bloc nutrition du weekly.
 
 ## Après écriture
 
