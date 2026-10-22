@@ -151,8 +151,9 @@ Vérifier l'état du dossier courant :
      et seulement ensuite par `grep` et la lecture des fichiers qu'il
      désigne. Le code se remet à jour seul (hooks git, sans modèle) ; les
      documents gardent leur dernière extraction : `/graphify . --update` sur
-     demande de Tim, puis committer `graphify-out/cache/semantic/`.
-     `graph_stats` dit si le graphe suit `HEAD`.
+     demande de Tim, puis committer `graphify-out/cache/semantic/`. Le
+     « may be stale » de `graph_stats` après un commit sans code est
+     normal : le hook ne reconstruit que si du code change.
    ```
 
 6. **Premier commit** (si le dépôt vient d'être créé à l'étape 2) — une fois
@@ -193,7 +194,9 @@ Vérifier l'état du dossier courant :
      Conditions : les mêmes octets des deux côtés (`core.autocrlf false`) et
      la même version de graphify, sinon le dossier de cache change de nom.
    - **Vérifier** par le MCP : `graph_stats` doit renvoyer des nœuds et
-     « matches HEAD ». Si la session a démarré avant que le graphe existe,
+     « matches HEAD » (juste après la construction ; plus tard, un commit
+     qui ne touche que des documents laisse un écart normal, le hook ne
+     reconstruit que si du code change). Si la session a démarré avant que le graphe existe,
      passer `project_path` (chemin absolu du projet).
 
 8. **Proposer le dépôt distant — ne rien créer sans un oui explicite.** Le
