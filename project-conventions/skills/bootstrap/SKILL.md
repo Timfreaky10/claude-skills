@@ -5,8 +5,10 @@ description: >
   existant qui n'a pas encore ces conventions) — un dépôt git avec son
   .gitignore si le dossier n'est pas encore versionné, un fichier de journal,
   un dossier de mockups (avec ses conventions visuelles si une feuille de styles
-  existe déjà) si le projet a une interface visuelle, et un CLAUDE.md
-  avec les sections de base et les conventions "journal" et "mockup-first".
+  existe déjà) si le projet a une interface visuelle, un graphe de
+  connaissances graphify tenu à jour par des hooks git, et un CLAUDE.md
+  avec les sections de base et les conventions "journal", "mockup-first"
+  et "graphe graphify".
   Utiliser ce skill quand Tim démarre un nouveau projet et dit des choses
   comme "on structure ce projet", "mets en place le journal et les mockups
   ici", ou "fais comme sur GameTracker mais pour ce projet-ci". Ne se
@@ -60,7 +62,18 @@ Vérifier l'état du dossier courant :
      node_modules/
      logs/
      .DS_Store
+
+     # Graphe graphify : régénéré sur chaque machine. Seul le cache
+     # d'extraction des documents est versionné (étape 7).
+     graphify-out/*
+     !graphify-out/cache/
+     graphify-out/cache/*
+     !graphify-out/cache/semantic/
      ```
+
+   - `git config --local core.autocrlf false` : le cache graphify est indexé
+     par un hachage des octets bruts de chaque fichier, un clone sorti en CRLF
+     sur une autre machine changerait toutes les clés.
 
    Ne **pas** committer à ce stade — le premier commit vient à l'étape 6, une
    fois les fichiers de structure écrits, pour qu'il ait un contenu réel.
@@ -129,6 +142,17 @@ Vérifier l'état du dossier courant :
    - **Vocabulaire visuel** : polices, variables CSS et fond de page sont
      dans `docs/mockups/README.md`, à ouvrir avant de construire un mockup.
      Le CSS fait foi si les deux divergent.
+
+   <!-- Si le graphe a été construit à l'étape 7 : -->
+   - **Graphe graphify — l'interroger avant de fouiller** : toute question
+     sur le code ou la doc (où vit X, qui appelle Y, quelle décision touche
+     Z) passe d'abord par le MCP `graphify` — `query_graph` (régler
+     `token_budget`), puis `get_node` / `get_neighbors` / `shortest_path` —
+     et seulement ensuite par `grep` et la lecture des fichiers qu'il
+     désigne. Le code se remet à jour seul (hooks git, sans modèle) ; les
+     documents gardent leur dernière extraction : `/graphify . --update` sur
+     demande de Tim, puis committer `graphify-out/cache/semantic/`.
+     `graph_stats` dit si le graphe suit `HEAD`.
    ```
 
 6. **Premier commit** (si le dépôt vient d'être créé à l'étape 2) — une fois
@@ -137,7 +161,42 @@ Vérifier l'état du dossier courant :
    être suivi apparaît, compléter le `.gitignore` plutôt que de committer et
    corriger après.
 
-7. **Proposer le dépôt distant — ne rien créer sans un oui explicite.** Le
+7. **Graphe graphify** — après le premier commit : les hooks s'accrochent au
+   dépôt, et le graphe retient le commit sur lequel il a été construit. Sur
+   un projet déjà versionné (étape git sautée), le faire quand même.
+
+   - **Vérifier l'outillage d'abord** : `graphify --version` (paquet
+     `graphifyy`), et le MCP — des outils `mcp__graphify__*` disponibles
+     dans la session (la CLI `claude` n'est pas toujours sur le PATH du
+     shell, `claude mcp list` ne suffit pas à conclure). S'il
+     manque quelque chose, donner les commandes à Tim — `pip install
+     graphifyy`, `graphify install`, `claude mcp add --scope user graphify
+     -- graphify-mcp` — sans rien installer sans son oui, et sauter cette
+     étape sans bloquer les autres. Le serveur se déclare **une fois, au
+     niveau utilisateur** : il lit `graphify-out/graph.json` du dossier où
+     la session démarre, rien à configurer par projet.
+   - **Exclure avant de construire** : un fichier généré, volumineux et sans
+     rien à apprendre (export, page de relecture, données brutes) va dans un
+     `.graphifyignore` — il coûterait à chaque extraction.
+   - **Construire** : `/graphify .` (skill `graphify`). Le code passe par
+     l'AST, sans modèle ; les documents passent par le modèle. Sur un projet
+     neuf, c'est négligeable. Sur un projet en cours riche en documents,
+     **annoncer l'ordre de grandeur avant** (repère GameTracker : ~2 M de
+     tokens pour ~190 documents) et laisser Tim choisir entre tout et
+     `graphify update .` (code seul, gratuit).
+   - **`graphify hook install`** : `post-commit`, `post-checkout`,
+     `post-merge` et `post-rewrite` refont la partie code après chaque
+     commit, changement de branche ou pull.
+   - **Committer `graphify-out/cache/semantic/`** (le `.gitignore` de
+     l'étape 2 laisse passer ce seul dossier) : l'autre machine reconstruit
+     le graphe par `/graphify .` sans repayer l'extraction des documents.
+     Conditions : les mêmes octets des deux côtés (`core.autocrlf false`) et
+     la même version de graphify, sinon le dossier de cache change de nom.
+   - **Vérifier** par le MCP : `graph_stats` doit renvoyer des nœuds et
+     « matches HEAD ». Si la session a démarré avant que le graphe existe,
+     passer `project_path` (chemin absolu du projet).
+
+8. **Proposer le dépôt distant — ne rien créer sans un oui explicite.** Le
    dépôt local de l'étape 2 est déjà pleinement utilisable ; publier est un
    geste séparé, qui expose quelque chose sous le compte de Tim. Donc :
    demander, et s'arrêter là s'il ne répond pas ou décline.
@@ -149,7 +208,9 @@ Vérifier l'état du dossier courant :
      explicitement, jamais comme suggestion.
    - S'il accepte : `gh repo create <slug> --private --source=. --push`.
 
-8. **Confirmer à Tim** ce qui a été créé, en particulier le choix "un seul
+9. **Confirmer à Tim** ce qui a été créé, en particulier le choix "un seul
    fichier de journal pour l'instant" — pour qu'il sache que la table
    sujet→fichier viendra plus tard, pas maintenant. Dire aussi si un dépôt a
-   été initialisé, et s'il est resté local ou non.
+   été initialisé, et s'il est resté local ou non, et si le graphe est
+   construit (code seul ou documents compris) ou ce qui manquait pour le
+   faire.

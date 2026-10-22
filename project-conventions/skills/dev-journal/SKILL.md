@@ -83,6 +83,23 @@ un récit ; c'est la date qui trahit le récit.)
 Ne ranger que ce qu'on vient d'écrire soi-même. Déplacer une règle plus
 ancienne du CLAUDE.md se propose à Tim, ça ne se fait pas d'office.
 
+## Le graphe graphify, s'il existe
+
+Un projet qui a un `graphify-out/graph.json` se fouille par le MCP `graphify`
+avant tout `grep` :
+
+- **Avant de ranger une règle**, `query_graph` sur sa notion : une règle
+  voisine existe peut-être déjà dans le journal, une référence ou CLAUDE.md.
+  La compléter plutôt qu'en écrire une seconde qui dériverait de la première.
+- **Pour le départage cause/écran** ou un sujet ambigu, `get_neighbors` sur
+  le nœud du code touché montre à quelle communauté (donc quel fichier de
+  journal) il se rattache déjà.
+- **Ne pas relancer l'extraction des documents d'office** après l'entrée :
+  c'est un appel au modèle, et le fichier de journal est souvent le plus
+  gros document du projet, relu en entier à chaque ré-extraction. Le hook
+  git refait la partie code au commit, gratuitement ; les documents
+  attendent un `/graphify . --update` demandé par Tim.
+
 ## Étapes
 
 1. Lire la section "Conventions de travail" du CLAUDE.md du projet courant :
@@ -93,8 +110,9 @@ ancienne du CLAUDE.md se propose à Tim, ça ne se fait pas d'office.
 3. Choisir/valider le fichier de journal.
 4. Ajouter une entrée à la fin de ce fichier, au format des entrées
    existantes.
-5. Si une règle en ressort, la ranger selon « Ce qui va où » — sinon, rien
-   d'autre à écrire.
+5. Si une règle en ressort, vérifier dans le graphe qu'elle n'existe pas
+   déjà (voir « Le graphe graphify »), puis la ranger selon « Ce qui va
+   où » — sinon, rien d'autre à écrire.
 6. Si CLAUDE.md a été modifié, appliquer « Mesurer ce qu'on vient d'écrire ».
 7. Committer le journal (et les fichiers modifiés) avec le reste du
    changement, ou juste avant.

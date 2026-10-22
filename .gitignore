@@ -8,4 +8,8 @@ synced/
 dist/
 *.skill
 
+# Skill graphify : recopié par `graphify install` depuis le paquet pip, à la version
+# installée. Versionné ici, il dériverait de l'outil à la première mise à jour.
+graphify/
+
 __pycache__/

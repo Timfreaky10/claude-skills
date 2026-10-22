@@ -1,7 +1,7 @@
 {
   "name": "project-conventions",
-  "version": "0.1.0",
-  "description": "Discipline journal-avant-commit et mockup-avant-implémentation, réutilisable sur n'importe quel projet — bootstrap la structure dès le jour 1, puis applique la convention établie.",
+  "version": "0.2.0",
+  "description": "Discipline journal-avant-commit et mockup-avant-implémentation, graphe graphify interrogé par MCP avant de fouiller, réutilisable sur n'importe quel projet — bootstrap la structure dès le jour 1, puis applique la convention établie.",
   "author": {
     "name": "Tim McGarry"
   }

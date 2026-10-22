@@ -9,8 +9,8 @@ retrouver tous les plugins listés ci-dessous, sans étape d'installation suppl�
 
 ## Plugins
 
-- **`project-conventions`** — discipline journal-avant-commit et mockup-avant-implémentation,
-  réutilisable sur n'importe quel projet (bootstrap la structure dès le jour 1, puis applique
+- **`project-conventions`** — discipline journal-avant-commit, mockup-avant-implémentation et
+  graphe graphify interrogé par MCP avant de fouiller, réutilisable sur n'importe quel projet (bootstrap la structure dès le jour 1, puis applique
   la convention établie dans le CLAUDE.md de chaque projet). Née sur GameTracker, généralisée
   le 2026-08-12.
 - **`journal-obsidian`** — procédure du journal Obsidian (daily dicté, revue hebdo, notes thématiques).
@@ -26,6 +26,21 @@ git clone https://github.com/Timfreaky10/claude-skills.git ~/.claude/skills
 
 Si `~/.claude/skills/` existe déjà avec du contenu sur cette machine, fusionner manuellement
 plutôt qu'écraser.
+
+### graphify (utilisé par `project-conventions`)
+
+Le skill `graphify/` n'est **pas** versionné ici : `graphify install` le recopie depuis le paquet pip,
+et il doit correspondre à la version installée. Sur chaque machine :
+
+```bash
+pip install graphifyy
+graphify install
+claude mcp add --scope user graphify -- graphify-mcp
+```
+
+Le serveur MCP se déclare une seule fois, au niveau utilisateur : il lit `graphify-out/graph.json`
+du dossier où la session démarre. **Même version de graphify sur toutes les machines**, sinon le
+cache d'extraction versionné dans chaque projet change de dossier et tout repasse au modèle.
 
 ## Construire un `.skill` pour un compte Claude
 
