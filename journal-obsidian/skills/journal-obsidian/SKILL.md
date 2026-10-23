@@ -104,6 +104,11 @@ les scripts les régénèrent (fenêtre de 7 jours, nouvel export). Rédiger aut
 Nutrition va **au-dessus** du bloc nutrition et s'appuie sur ses chiffres (moyenne, déclencheurs
 datés) plutôt que sur un recomptage des repas. Même règle pour le mensuel. Détails dans `conventions.md`.
 
+**Seule exception, la « 🌡️ Météo du mois » du mensuel** (entre `<!-- meteo-mois:start -->` et
+`:end -->`) : la revue mensuelle y rédige la colonne **Ambiance** du tableau par semaine (les cases
+« — »), que le script conserve, et le **recap** en citation juste sous `:end -->`. Le reste du bloc ne
+s'édite pas. S'en tenir aux relevés : pas d'« orage » ni de « canicule » que les chiffres ne montrent pas.
+
 Une semaine mal documentée se **signale** (encadré en tête, nombre de dailies sources), elle ne se
 lisse pas : une moyenne sur un seul jour n'est pas une moyenne.
 
