@@ -121,10 +121,19 @@ Une section générée par script (marqueurs `<!-- samsung-nutrition -->`, comme
 en bas de `Nutrition & Corps.md`) ne s'édite pas. La puce hebdo de cette note reprend les chiffres du
 bloc nutrition du weekly.
 
+**Lien retour** : l'entrée lie le daily ou la semaine qui la source, et le daily reçoit la note dans sa
+ligne `🔗 Notes :` (sous la navigation). Un rêve consigné dans `Rêves.md` : voir `templates/thematic.md`.
+
 ## Après écriture
 
 - **TickTick** : identifier ce qui mérite un suivi (idée à concrétiser, observation santé à confirmer,
   achat, rappel) et **proposer une liste de tâches** — Tim valide avant création.
+- **Liens** : après une revue hebdo ou mensuelle, ou une entrée dans une note thématique ou dans
+  `Rêves.md`, lancer `python journal_links.py` depuis `Journal/` (simulation), relire, puis `--apply`.
+  Il recalcule la navigation des dailies, les lignes `🔗 Notes` des weeklies et mensuels, et Rêves ↔
+  dailies, uniquement à partir des liens existants. En Cowork : `JOURNAL_VAULT_DIR=$HOME/mnt/01_Journal`,
+  avec `04_Notes` monté à côté. Si Python ou un dossier manque, le dire à Tim plutôt que de poser ces
+  liens à la main.
 - **`Journal/CLAUDE.md`** : mettre à jour l'état courant, les points ouverts et le contexte narratif
   **actif**. Y retirer ce qui vient de se clore.
 - **`Journal/CHANGELOG.md`** : y consigner le compte rendu de la session — corrections, anomalies,
